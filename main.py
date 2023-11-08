@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import ttk
 import Function
 import Microwave
-
+food_image = PhotoImage(file="Food.png")
 Frame = Tk()
 # отслеживание режима работы
 r_var_mode = IntVar()
@@ -21,6 +21,42 @@ times.place(x=900, y=460)
 times['foreground'] = 'green'
 times['font'] = ('TimesNewRoman', 14)
 times['background'] = 'black'
+
+canvas = Canvas(bg="blue", width=640, height=480)
+canvas.place(x=10, y=10)
+
+button = ttk.Button(text="Начать работу")
+button.place()
+
+
+def on_radio_select():
+    if r_var_mode.get() == 0:
+        for i in tempa:
+            i.config(state="normal")
+        for i in timer:
+            i.config(state="normal")
+    elif r_var_mode.get() == 1:
+        r_var_temperature.set(1)
+        time.set(2)
+        for i in tempa:
+            i.config(state="disabled")
+        for i in timer:
+            i.config(state="disabled")
+    elif r_var_mode.get() == 2:
+        r_var_temperature.set(0)
+        time.set(4)
+        for i in tempa:
+            i.config(state="disabled")
+        for i in timer:
+            i.config(state="disabled")
+    elif r_var_mode.get() == 3:
+        r_var_temperature.set(2)
+        time.set(3)
+        for i in tempa:
+            i.config(state="disabled")
+        for i in timer:
+            i.config(state="disabled")
+
 
 # создание выборов режима температуры
 radiotemp1 = ttk.Radiobutton(variable=r_var_temperature, text="40 градусов", value=0)
@@ -43,16 +79,18 @@ radiotime5 = ttk.Radiobutton(variable=time, text="3 минуты", value=4)
 Microwave.Sozdanie1(radiotime5, 820, 430)
 timer = [radiotime1, radiotime2, radiotime3, radiotime4, radiotime5]
 # создание выборов режима работы
-radiomode1 = ttk.Radiobutton(variable=r_var_mode, text="Пользовательский режим", value=0, command=Function.on_radio_select(r_var_mode,timer,tempa))
+radiomode1 = ttk.Radiobutton(variable=r_var_mode, text="Пользовательский режим", value=0,
+                             command=on_radio_select)
 Microwave.Sozdanie1(radiomode1, 820, 70)
-radiomode2 = ttk.Radiobutton(variable=r_var_mode, text="Режим подогрева", value=1, command=Function.on_radio_select(r_var_mode,timer,tempa))
+radiomode2 = ttk.Radiobutton(variable=r_var_mode, text="Режим подогрева", value=1,
+                             command=on_radio_select)
 Microwave.Sozdanie1(radiomode2, 820, 110)
-radiomode3 = ttk.Radiobutton(variable=r_var_mode, text="Режим разморозки", value=2, command=Function.on_radio_select(r_var_mode,timer,tempa))
+radiomode3 = ttk.Radiobutton(variable=r_var_mode, text="Режим разморозки", value=2,
+                             command=on_radio_select)
 Microwave.Sozdanie1(radiomode3, 820, 150)
-radiomode4 = ttk.Radiobutton(variable=r_var_mode, text="Режим готовки", value=3, command=Function.on_radio_select(r_var_mode,timer,tempa))
+radiomode4 = ttk.Radiobutton(variable=r_var_mode, text="Режим готовки", value=3,
+                             command=on_radio_select)
 Microwave.Sozdanie1(radiomode4, 820, 190)
-
-
 
 
 def update_time():
@@ -65,8 +103,6 @@ def Finish():
     print("Закрытие приложений")
 
 
-
-
 def MainForm(window):
     window.title("Бакиров Данил, Валеев Марат. Моделирование работы микроволновки")
     window.geometry("1000x500+400+200")
@@ -75,9 +111,12 @@ def MainForm(window):
     # Создание полей подсказок Label
     label = Microwave.Label()
     label.Sozdanie(Frame)
+    # отрисовка на Canvas
+    Function.Cnv(canvas)
     # Метод, который запускает основную форму
     window.mainloop()
 
 
+canvas.create_image(10, 10, anchor=NW, image=food_image)
 update_time()
 MainForm(Frame)
