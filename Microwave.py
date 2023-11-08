@@ -1,4 +1,3 @@
-import time
 from tkinter import *
 from tkinter import ttk
 from abc import ABC
@@ -7,7 +6,7 @@ from abc import ABC
 def ParametrsLabel(labels):
     for i in labels:
         i['foreground'] = 'blue'
-        i['font'] = ('TimesNewRoman', 11)
+        i['font'] = ('time1sNewRoman', 11)
 
 
 class Figure(ABC):
@@ -22,11 +21,11 @@ class Label(Figure):
         Mode.place(x=820, y=30)
         Temperature = ttk.Label(text="Температура")
         Temperature.place(x=680, y=30)
-        Time = ttk.Label(text="Время подогрева")
-        Time.place(x=820, y=230)
+        time1 = ttk.Label(text="Время подогрева")
+        time1.place(x=820, y=230)
         data = ttk.Label(text="Текущее время")
         data.place(x=790, y=462)
-        labels = [Mode, Temperature, Time, data]
+        labels = [Mode, Temperature, time1, data]
         ParametrsLabel(labels)
 
 
