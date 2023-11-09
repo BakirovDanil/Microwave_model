@@ -169,6 +169,7 @@ def start_microwave(x):
                                         image=python_image)  # Предполагается, что python_image доступен в области видимости
     print("Микроволновка закончила работу")
     time.sleep(2)
+    print("Микроволновка в состоянии ожидания")
     canvas["bg"] = "#5599FF"
     canvas.delete(python_image1)
 
